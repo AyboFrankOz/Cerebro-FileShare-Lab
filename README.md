@@ -1,4 +1,4 @@
-# Cerebro-FileShare-Lab
+# Cerebro-FolderShare-Lab
 In this home lab, I demonstrate folder and file sharing, access permissions (Share-Level Permissions), network drive mapping, and user restrictions within an Active Directory environment populated using a custom X-Men–themed user creation script: [Cerebro-AD-Creator]( https://github.com/AyboFrankOz/Cerebro-AD-Creator)
 
 ## Step 0 Tidying Up
