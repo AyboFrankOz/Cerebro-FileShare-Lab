@@ -51,12 +51,61 @@ or via the script:[Creating 10 folders](https://github.com/AyboFrankOz/Cerebro-F
 ![Creating folders](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/b2e62699c3037d3fbf31402ac406557e0af5208e/Images/Creating%20folders%20(3).PNG)
 ![Creating folders](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/b2e62699c3037d3fbf31402ac406557e0af5208e/Images/Creating%20folders%20(4).PNG)
 
-## Step 2 Assigning Access Permissions
-Each department will have its own folder, while the Helpdesk is granted *Full Control* over all folders to act as the central management group. The Executives will be granted *Change* permission on all folders. Thus, we will assign the folders and groups accordingly.
+## Step 2 Assigning Access Permissions (Share-Level Permissions)
+There are three types of Share-Level Permissions: Read, Change, and Full Control.
++ Users with Read can view files and subfolders, open and read file contents, run executable files, but cannot make any modifications.
++ Users with Change can create new files and folders, edit and modify existing files, delete files and folders, plus the actions that users with Read permission do.
++ Users with Full Control can change permissions on the share, take ownership of files, plus the actions that users with Change permission do.
+
+In this lab, each department will have its own folder, while the Helpdesk is granted **Full Control** over all folders to act as the central management group. The Executives will be granted **Change** permission on all folders. On DC, go to Local Disk > Shared. Right-click on the Executives folder, then "Properties"
+![Assigning Users](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/38425b412ef4b20c9e418fde09db057578469368/Images/Assigning%20Access%20(1).PNG)
+
+"Executive properties" will open. Click on the "Sharing" tab, then "Advanced Sharing". A new window will open. Check "Share this folder" option. Click on "Permissions". Permissions window will open. Click on "Add" and another window will open. In this window, we will select the groups that we want to give access to. Type "Executives" and "Helpdesk" and click OK.
+![Assigning Users](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/38425b412ef4b20c9e418fde09db057578469368/Images/Assigning%20Access%20(2).PNG)
+
+First, click on "Everyone" then "Remove". Next, click on "Executive" group and check "Allow" option for Change. 
+![Assigning Users](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/38425b412ef4b20c9e418fde09db057578469368/Images/Assigning%20Access%20(3).PNG)
+
+Click on "Helpdesk" group and check "Allow" option for Change and Full Control.
+![Assigning Users](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/38425b412ef4b20c9e418fde09db057578469368/Images/Assigning%20Access%20(4).PNG)
+
+Now, we have to assign permissions to other groups. For example, the Marketing group should access "Marketing" and "All Employees" folders, but should not access any other folders. Meanwhile, the Executive group and the Helpdesk group should be able to access this "Marketing" folder. If you don't want to give permissions to other groups manually, you can run [Assign Permissions](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/d8dae3bbb17ca304876bb30792603148227e04d8/Assign%20Permissions.ps1) script.
+
+![Permission Script](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/d8dae3bbb17ca304876bb30792603148227e04d8/Images/Permission%20Script%20(1).PNG)
+
+![Permission Script](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/d8dae3bbb17ca304876bb30792603148227e04d8/Images/Permission%20Script%20(2).PNG)
+
+This script automates permission assignment by mapping each department folder to its corresponding security group with read-only access, while granting the "Helpdesk" group **full control** across all folders. It also gives the "Executive" group **Change** permission and removes default inherited permissions for the “Everyone” group.
 
 ## Step 3 Verification
 
-## Step 4 Mapping Drive
+As seen below, Hank McCoy (Username: Beast) is Chief Technology Officer and in the Executive Group.
+![Testing user access](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/00796a4f7b7c31fd73c57c148b6eac8559b6f830/Images/Test%20Beast%20(0).PNG)
 
+When he signs in, 
+![Testing user access](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/cd49e9f28d29d416066e203bbfac2706ed0e480b/Images/Test%20Beast%20(1.1).PNG)
+
+He can access all folders. He can access the Executive folder. 
+![Testing user access](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/00796a4f7b7c31fd73c57c148b6eac8559b6f830/Images/Test%20Beast%20(1).PNG)
+
+He can access the Technology folder. 
+![Testing user access](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/00796a4f7b7c31fd73c57c148b6eac8559b6f830/Images/Test%20Beast%20(2).PNG)
+
+He can access the Marketing folder. 
+![Testing user access](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/00796a4f7b7c31fd73c57c148b6eac8559b6f830/Images/Test%20Beast%20(3).PNG)
+
+Meanwhile, Booby Drake (Username: Iceman) is Creative Marketing Director and in the Marketing Group.
+![Testing another user access](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/40b87ff337d873f21d8407a65a1d70fe8979a48a/Images/Test%20Iceman%20(1).PNG)
+
+When he signs in, 
+![Testing another user access](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/40b87ff337d873f21d8407a65a1d70fe8979a48a/Images/Test%20Iceman%20(2).PNG)
+
+He can access the Marketing folder.
+![Testing another user access](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/40b87ff337d873f21d8407a65a1d70fe8979a48a/Images/Test%20Iceman%20(3).PNG)
+
+But he cannot access the Sales folder.
+![Testing another user access](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/40b87ff337d873f21d8407a65a1d70fe8979a48a/Images/Test%20Iceman%20(4).PNG)
+
+## Step 4 Mapping Drive
 
 ## Step 5 Restrictions
