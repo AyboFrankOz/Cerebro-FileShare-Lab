@@ -107,5 +107,16 @@ But he cannot access the Sales folder.
 ![Testing another user access](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/40b87ff337d873f21d8407a65a1d70fe8979a48a/Images/Test%20Iceman%20(4).PNG)
 
 ## Step 4 Mapping Drive
+Mapping a drive is the process of assigning a network shared folder or resource to a drive letter on a user's computer, so it appears like a local drive. Go to File Explorer and right-click on Network > Map network drive
+![Mapping a drive](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/40b87ff337d873f21d8407a65a1d70fe8979a48a/Images/Mapping%20a%20Drive%20(1).PNG)
+
+Give a drive letter and type the path of the folder or resource, in our case \\DC01\Marketing, > Finish.
+![Mapping a drive](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/40b87ff337d873f21d8407a65a1d70fe8979a48a/Images/Mapping%20a%20Drive%20(2).PNG)
+
+Once it is done, it will appear under Network Locations when you click "This PC". You can also drag it to the Desktop to create a shortcut to that drive.
+![Mapping a drive](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/40b87ff337d873f21d8407a65a1d70fe8979a48a/Images/Mapping%20a%20Drive%20(3).PNG)
 
 ## Step 5 Restrictions
+
+
+
