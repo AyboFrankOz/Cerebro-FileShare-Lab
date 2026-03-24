@@ -94,7 +94,7 @@ He can access the Technology folder.
 He can access the Marketing folder. 
 ![Testing user access](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/00796a4f7b7c31fd73c57c148b6eac8559b6f830/Images/Test%20Beast%20(3).PNG)
 
-Meanwhile, Booby Drake (Username: Iceman) is Creative Marketing Director and in the Marketing Group.
+Meanwhile, Booby Drake (Username: Iceman) is the Creative Marketing Director and in the Marketing Group.
 ![Testing another user access](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/40b87ff337d873f21d8407a65a1d70fe8979a48a/Images/Test%20Iceman%20(1).PNG)
 
 When he signs in, 
@@ -110,7 +110,7 @@ But he cannot access the Sales folder.
 Mapping a drive is the process of assigning a network shared folder or resource to a drive letter on a user's computer, so it appears like a local drive. Go to File Explorer and right-click on Network > Map network drive
 ![Mapping a drive](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/40b87ff337d873f21d8407a65a1d70fe8979a48a/Images/Mapping%20a%20Drive%20(1).PNG)
 
-Give a drive letter and type the path of the folder or resource, in our case \\DC01\Marketing, > Finish.
+Give a drive letter and type the path of the folder or resource, in our case, \\DC01\Marketing > Finish.
 ![Mapping a drive](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/40b87ff337d873f21d8407a65a1d70fe8979a48a/Images/Mapping%20a%20Drive%20(2).PNG)
 
 Once it is done, it will appear under Network Locations when you click "This PC". You can also drag it to the Desktop to create a shortcut to that drive.
@@ -118,5 +118,42 @@ Once it is done, it will appear under Network Locations when you click "This PC"
 
 ## Step 5 Restrictions
 
+In real network environments, sharing folders through Active Directory keeps data secure, organized, accessible, and easy to manage across an entire organization. However, sharing large files or using the company storage as personal storage areas can cause several issues if not managed properly, such as network performance, storage space, slow file access, backup time, and version conflicts. Thus, it needs to be carefully managed to avoid performance, storage, and collaboration issues.
 
+We may want to prevent users from uploading large or non-business-related files (such as .mp4 videos) to shared folders. This can be achieved by configuring File Server Resource Manager (FSRM). Let's restrict the "All Employees" folder so users cannot upload MP3 or MP4 files. On the DC, run Server Manager, Manage > Add Roles and Features.
+![Setting up FSRM](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/726650acb9c5a6b7b2296686e1c6eab01e81b477/Images/Setting%20up%20FSRM%20(1).PNG)
 
+Wizard will start. Click on "Next" until you see the "Select Server Roles" page. Click on "File Server Resource Manager".
+![Setting up FSRM](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/709e5939f48c00a5ad9fb207081ddc9ee71c8172/Images/Setting%20up%20FSRM%20(2).PNG)
+
+Click "Add Features". Proceed with the installation, as we don't have to change any default settings. Once the installation is done, click "Close" to close the wizard. On Server Manager, click on Tools > File Server Resource Manager. 
+
+On FSRM, click on "File Screening Management" under File Server Resource Manager (Local). Then File Screens. Right-click on the blank page and "Create File Screen".
+![FSRM Configuration](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/160bce372adda68bc0d848571b0745e6256052bb/Images/FSRM%20Configuration%20(1).PNG)
+
+Click "Browse" for the path you want to restrict, 
+![FSRM Configuration](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/160bce372adda68bc0d848571b0745e6256052bb/Images/FSRM%20Configuration%20(2).PNG)
+
+C:\Shared\All Employees, in our case
+![FSRM Configuration](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/160bce372adda68bc0d848571b0745e6256052bb/Images/FSRM%20Configuration%20(3).PNG)
+
+Select the appropriate option, "Block Audio and Video Files" in our case
+![FSRM Configuration](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/160bce372adda68bc0d848571b0745e6256052bb/Images/FSRM%20Configuration%20(4).PNG)
+
+Click the "Create" button.
+![FSRM Configuration](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/160bce372adda68bc0d848571b0745e6256052bb/Images/FSRM%20Configuration%20(5).PNG)
+
+Let's try to upload an MP4 file with Booby Drake (Username: Iceman)
+![Testing another user access](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/40b87ff337d873f21d8407a65a1d70fe8979a48a/Images/Test%20Iceman%20(2).PNG)
+
+When the user tries to upload the file to "All Employees" folder...
+![Testing FSRM](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/9339dad8869b4f66fd2720177b9ad4f13f8381cf/Images/Test%20FSRM%20(1).PNG)
+
+... access would be denied.
+![Testing FSRM](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/9339dad8869b4f66fd2720177b9ad4f13f8381cf/Images/Test%20FSRM%20(2).PNG)
+
+If we go to Event Viewer from Server Manager > Tools > Event Viewer
+![Event Viewer Logs](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/6533af84680189794bb415f282f95f19e40fe4cf/Images/Event%20Viewer%20(1).PNG)
+
+Click on "Windows Logs" under "Event Viewer (Local)", then "Application". We can see a Warning that states "The system detected that user Iceman attempted to save an MP4 file on C:\Shared\All Employees on server DC01. This file matches the "Audio and Video Files" file group which is not permitted on the system.
+![Event Viewer Logs](https://github.com/AyboFrankOz/Cerebro-FileShare-Lab/blob/aeceeddc700e60ccf4c481957a82b3eb9499e71d/Images/Event%20Viewer%20(2).PNG)
